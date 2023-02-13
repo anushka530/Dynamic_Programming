@@ -1,0 +1,78 @@
+Question:
+https://leetcode.com/problems/climbing-stairs/
+
+
+Solution:
+class Solution {
+    public int climbStairs(int n) {
+       //return f(n); ---->> Recursion
+
+       /* 
+       ----> Memoization
+       int[] dp = new int[n+1];
+       Arrays.fill(dp,-1);
+       return f(n,dp);
+    */
+
+    //return f(n); -----> Tabulation
+
+    return f(n); // ----> Space optimization
+
+    }
+    //Recursion
+    /*public int f(int idx)
+    {
+       if(idx<0)
+         return 0;
+       if(idx == 0)
+          return 1;
+        return f(idx-1)+f(idx-2);    
+    }*/
+
+    //Memoization
+    /*public int f(int idx, int[] dp)
+    {
+        if(idx<0)
+          return 0;
+       if(dp[idx] != -1)
+         return dp[idx];
+        if(idx == 0)
+          return dp[idx]=1;
+        return dp[idx]=f(idx-1,dp)+f(idx-2,dp);    
+    }*/
+
+   // Tabulation
+   /* public int f(int idx)
+    {
+        if(idx<0)
+          return 0;
+        if(idx==0 || idx==1)
+           return 1;  
+        int[] dp = new int[idx+1];
+        dp[0]=1;
+        dp[1]=1;
+        for(int i=2;i<=idx;i++)
+        {
+            dp[i]=dp[i-1]+dp[i-2];
+        }
+        return dp[idx];
+    }*/
+
+// Space optimization
+    public int f(int idx)
+    {
+        int prev1=1;
+        int prev2=1;
+        if(idx<0)
+          return 0;
+        if(idx==0 || idx==1)
+          return 1;
+        for(int i=2;i<=idx;i++)
+        {
+            int curr = prev1+prev2;
+            prev1=prev2;
+            prev2=curr;
+        }  
+       return prev2;
+    }
+}
